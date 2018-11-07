@@ -1,0 +1,70 @@
+//Basic algorithm To implement Dynamic Connectivity using quick find in java
+<i>Any correction will be appreciated</i>
+
+import java.util.Scanner;
+import java.io.*;
+public class QuickFind
+{
+    int size=0;
+    int []id;
+    //Constructor to intialize the size of array and store respective individual ID's
+    QuickFind(int n)
+    {
+        size=n;
+        id=new int[size];
+        for(int i=0;i<size;i++)
+            id[i]=i;
+    }
+    
+    // Connect the two elements by making their ID's same
+    public void Union(int p,int q)
+    {
+        int i,key1=id[p],key2=id[q];
+        for(i=0;i<size;i++)
+        {
+            if(id[i]==key1||id[i]==key2)
+                id[i]=key2;
+        }
+    }
+    
+    //Check if the two given elements are connected or not
+    public boolean Connected(int p,int q)
+    {
+        return (id[p]==id[q]);
+    }
+    
+    
+    public static void main(String args[])throws IOException
+    {
+        int []i=new int[2];
+        char ch,uselessSpace;
+        InputStreamReader inp=new InputStreamReader(System.in);
+        BufferedReader br=new BufferedReader(inp);
+        Scanner in=new Scanner(System.in);
+        int N=in.nextInt();
+        QuickFind ob=new QuickFind(N);
+        
+        while(true)
+        {
+            System.out.println("Enter n to exit and y to continue");
+            ch=(char)br.read();
+            if(ch=='n')
+                break;
+            for(int j=0;j<2;j++)
+                i[j]=in.nextInt();
+                
+            //remove extra spaces from the input buffer
+            uselessSpace=(char)br.read();
+           
+            if(i[0]>=ob.size||i[1]>=ob.size)
+                System.out.println("Enter again");
+            else
+                ob.Union(i[0],i[1]);
+                
+        }
+        System.out.println("Enter elements to find connctivity");
+        for(int j=0;j<2;j++)
+            i[j]=in.nextInt();
+        System.out.println(ob.Connected(i[0],i[1]));
+    }
+}
