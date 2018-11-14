@@ -1,0 +1,87 @@
+import java.util.Scanner;
+import java.io.*;
+public class WeightedQuickUnion
+{
+    int size=0;
+    int []id;
+    int []sz;
+    //Constructor to intialize the size of array and store respective individual ID's
+    WeightedQuickUnion(int n)
+    {
+        size=n;
+        id=new int[size];
+        sz=new int[size];
+        for(int i=0;i<size;i++){
+            id[i]=i;
+            sz[i]=i;}
+    }
+    
+    //Connect two trees(every individual point is considered as point tree)
+    public void Union(int p,int q)
+    {
+        int i=root(p);
+        int j=root(q);
+        if(i==j)
+        return;
+        //Link smaller tree as a child node to the root of larger tree
+        if(sz[i]<sz[j]){
+            id[i]=j;
+            sz[j]+=sz[i];
+        }
+        else{
+            id[j]=i;
+            sz[i]+=sz[j];
+        }
+        
+    }
+    
+    //check if two nodes are connected or not
+    public boolean Connected(int p,int q)
+    {
+        return(root(p)==root(q));
+    }
+    
+    //Find root of an element
+    public int root(int p)
+    {
+        while(id[p]!=p)
+        {
+            p=id[p];
+        }
+        return p;
+    }
+    
+    public static void main(String args[])throws IOException
+    {
+        int []i=new int[2];
+        char ch,uselessSpace;
+        InputStreamReader inp=new InputStreamReader(System.in);
+        BufferedReader br=new BufferedReader(inp);
+        Scanner in=new Scanner(System.in);
+        int N=in.nextInt();
+        WeightedQuickUnion ob=new WeightedQuickUnion(N);
+        
+        while(true)
+        {
+            System.out.println("Enter n to exit and y to continue");
+            ch=(char)br.read();
+            if(ch=='n')
+                break;
+            for(int j=0;j<2;j++)
+                i[j]=in.nextInt();
+                
+            //remove extra spaces from the input buffer
+            uselessSpace=(char)br.read();
+           
+            if(i[0]>=ob.size||i[1]>=ob.size)
+                System.out.println("Enter again");
+            else
+                ob.Union(i[0],i[1]);
+                
+        }
+        System.out.println("Enter elements to find connctivity");
+        for(int j=0;j<2;j++)
+            i[j]=in.nextInt();
+        System.out.println(ob.Connected(i[0],i[1]));
+    }
+}
