@@ -1,0 +1,74 @@
+import java.util.Scanner;
+import java.io.*;
+public class QuickUnion
+{
+    int size=0;
+    int []id;
+    //Constructor to intialize the size of array and store respective individual ID's
+    QuickUnion(int n)
+    {
+        size=n;
+        id=new int[size];
+        for(int i=0;i<size;i++)
+            id[i]=i;
+    }
+    
+    //Connect two nodes by making one a child of another
+    public void Union(int p,int q)
+    {
+        int i=root(p);
+        int j=root(q);
+        id[i]=j;
+        
+    }
+    
+    //To check if the two given points are connected or not
+    public boolean Connected(int p,int q)
+    {
+        return(root(p)==root(q));
+    }
+    
+    //To find the root of the given node
+    public int root(int p)
+    {
+        while(id[p]!=p)
+        {
+            p=id[p];
+        }
+        return p;
+    }
+    
+    public static void main(String args[])throws IOException
+    {
+        int []i=new int[2];
+        char ch,uselessSpace;
+        InputStreamReader inp=new InputStreamReader(System.in);
+        BufferedReader br=new BufferedReader(inp);
+        Scanner in=new Scanner(System.in);
+        int N=in.nextInt();
+        QuickUnion ob=new QuickUnion(N);
+        
+        while(true)
+        {
+            System.out.println("Enter n to exit and y to continue");
+            ch=(char)br.read();
+            if(ch=='n')
+                break;
+            for(int j=0;j<2;j++)
+                i[j]=in.nextInt();
+                
+            //remove extra spaces from the input buffer
+            uselessSpace=(char)br.read();
+           
+            if(i[0]>=ob.size||i[1]>=ob.size)
+                System.out.println("Enter again");
+            else
+                ob.Union(i[0],i[1]);
+                
+        }
+        System.out.println("Enter elements to find connctivity");
+        for(int j=0;j<2;j++)
+            i[j]=in.nextInt();
+        System.out.println(ob.Connected(i[0],i[1]));
+    }
+}
