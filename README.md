@@ -27,5 +27,5 @@
   
   Union:-Modify  Quick Union to:-
   
-  1.)Link Root of a smaller tree to root of larger tree making it a child of larger tree.
-  2.)Update the sz[] array to total no of elements now in a tree)
+       1.)Link Root of a smaller tree to root of larger tree making it a child of larger tree.
+       2.)Update the sz[] array to total no of elements now in a tree)
